@@ -3,7 +3,7 @@ package com.Krishu.Model;
 public class bank_account {
     private int account_id;
     private int user_id;
-    private float balance;
+    private double balance;
 
     public int getAccount_id() {
         return account_id;
@@ -21,7 +21,7 @@ public class bank_account {
         this.user_id = user_id;
     }
 
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 

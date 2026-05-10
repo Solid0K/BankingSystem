@@ -1,5 +1,6 @@
 package com.Krishu.Service;
 
+import com.Krishu.DB.DBConnection;
 import com.Krishu.Model.User;
 
 import java.sql.Connection;
@@ -9,12 +10,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserService {
-    private static Scanner scanner=new Scanner(System.in);
     private static Connection connection;
     private static PreparedStatement statement;
 
     public static boolean register(String UserName,String Email,String passWord) throws SQLException {
         String sql="insert into users(full_name,email,password) values(?,?,?)";
+        connection= DBConnection.getConnection();
         try{
             statement=connection.prepareStatement(sql);
             statement.setString(1,UserName);
@@ -27,8 +28,9 @@ public class UserService {
         }
     }
 
-    public static boolean ChangePassword(String email,String NewPassWord){
+    public static boolean ChangePassword(String email,String NewPassWord) throws SQLException {
         String sql="update into users set password=? where email=?";
+        connection= DBConnection.getConnection();
         try{
             statement=connection.prepareStatement(sql);
             statement.setString(1,NewPassWord);
@@ -40,8 +42,9 @@ public class UserService {
         }
     }
 
-    public static boolean CheckingEmail(String email){
+    public static boolean CheckingEmail(String email) throws SQLException {
         String sql="select * from users where email=?";
+        connection= DBConnection.getConnection();
         try{
             statement=connection.prepareStatement(sql);
             statement.setString(1,email);
