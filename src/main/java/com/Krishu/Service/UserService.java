@@ -27,9 +27,12 @@ public class UserService {
             statement= connection.prepareStatement(sql1);
             statement.setString(1,Email);
             ResultSet set=statement.executeQuery();
-            statement=connection.prepareStatement(sql2);
-            statement.setInt(1,set.getInt("id"));
-            int rowAffected=statement.executeUpdate();
+            int rowAffected = 0;
+            if(set.next()) {
+                statement = connection.prepareStatement(sql2);
+                statement.setInt(1, set.getInt("id"));
+                rowAffected=statement.executeUpdate();
+            }
             return rowAffected!=0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -37,7 +40,7 @@ public class UserService {
     }
 
     public static boolean ChangePassword(String email,String NewPassWord) throws SQLException {
-        String sql="update into users set password=? where email=?";
+        String sql="update users set password=? where email=?";
         connection= DBConnection.getConnection();
         try{
             statement=connection.prepareStatement(sql);
