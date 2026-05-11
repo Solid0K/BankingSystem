@@ -10,7 +10,7 @@ public class TransactionService {
     private static Connection connection;
     private static PreparedStatement statement;
 
-    public boolean Deposit(int account_id,double amount) throws SQLException {
+    public static boolean Deposit(int account_id,double amount) throws SQLException {
         connection= DBConnection.getConnection();
         try{
             if(Bank_AccountService.AccountExist(account_id)){
@@ -35,7 +35,7 @@ public class TransactionService {
         }
     }
 
-    public boolean WithDraw(int account_id,double amount) throws SQLException {
+    public static boolean WithDraw(int account_id,double amount) throws SQLException {
         connection=DBConnection.getConnection();
         try{
             if(Bank_AccountService.AccountExist(account_id) && Bank_AccountService.checkBalance(account_id)>=amount){
@@ -60,7 +60,7 @@ public class TransactionService {
         }
     }
 
-    public boolean Transfer(int s_account,int r_account,double amount) throws SQLException {
+    public static boolean Transfer(int s_account,int r_account,double amount) throws SQLException {
         connection=DBConnection.getConnection();
         try{
             if(Bank_AccountService.AccountExist(s_account) && Bank_AccountService.AccountExist(r_account)){
